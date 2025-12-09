@@ -78,7 +78,7 @@ const Grid = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex items-center justify-center gap-4 p-4 border-b">
-        <div className="flex-1 max-w-xs">
+        <div className="flex-1 flex flex-col gap-2 max-w-xs">
           <Label htmlFor="grid-size">Grid Size: {gridSize}</Label>
           <Slider
             id="grid-size"
@@ -89,39 +89,31 @@ const Grid = () => {
             onValueChange={handleGridSizeChange}
           />
         </div>
-        <Button onClick={clearGrid}>Clear Grid</Button>
-        <Button onClick={handleCopy}>Copy Array</Button>
+        <Button className="cursor-pointer" onClick={clearGrid}>Clear Grid</Button>
+        <Button className="cursor-pointer" onClick={handleCopy}>Copy Array</Button>
       </div>
-      <div className="flex-1 flex overflow-hidden">
-        <div className="flex-[3] flex items-center justify-center p-4">
-          <div
-            className="grid"
-            style={{
-              gridTemplateColumns: `repeat(${gridSize}, 20px)`,
-              gap: "1px",
-              border: "1px solid white",
-            }}
-            onMouseLeave={handleMouseUp}
-          >
-            {grid.map((row, rowIndex) =>
-              row.map((cell, colIndex) => (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  className="w-5 h-5 border border-gray-700"
-                  style={{ backgroundColor: cell ? "black" : "white" }}
-                  onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
-                  onMouseUp={handleMouseUp}
-                  onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
-                />
-              ))
-            )}
-          </div>
-        </div>
-        <div className="flex-1 p-4 border-l overflow-y-auto">
-          <h2 className="text-lg font-bold">Python-Style Matrix</h2>
-          <pre className="bg-gray-800 p-2 rounded mt-2">
-            {matrixRepresentation}
-          </pre>
+      <div className="flex items-center justify-center">
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: `repeat(${gridSize}, 20px)`,
+            gap: "1px",
+            border: "1px solid white",
+          }}
+          onMouseLeave={handleMouseUp}
+        >
+          {grid.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className="w-5 h-5 border border-gray-700"
+                style={{ backgroundColor: cell ? "black" : "white" }}
+                onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
+                onMouseUp={handleMouseUp}
+                onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
